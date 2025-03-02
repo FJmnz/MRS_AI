@@ -44,7 +44,8 @@ LeGusta(maria, song2).
 
 # Regla 2: Si un usuario no ha escuchado una canción, pero pertenece a un género que le gusta, entonces recomendarla.
 ∀u ∀c ∀g (Usuario(u) ∧ Cancion(c) ∧ Genero(g) ∧ PerteneceA(c, g) ∧ ¬LeGusta(u, c) ∧ ∃c' (LeGusta(u, c') ∧ PerteneceA(c', g)) → Recomendar(u, c)).
-'''observacion: hay que asegurarse de que ¬LeGusta(u, c) realmente signifique que el usuario no ha escuchado la canción.'''
+'''observacion: hay que asegurarse de que ¬LeGusta(u, c) en la implementación del sistema, este predicado realmente signifique que el usuario 
+   no ha escuchado la canción, no solo que no le gusta.'''
 
 
 3. Consultas
