@@ -1,4 +1,58 @@
+Definición de Predicados:
+
+1. Predicados:
+//Los predicados representan las relaciones y propiedades en nuestro sistema:
+
+->Usuario(u): Representa que 'u' es un usuario.
+
+->Cancion(c): Representa que 'c' es una canción.
+
+->Genero(g): Representa que 'g' es un género musical.
+
+->LeGusta(u, c): Representa que al usuario 'u' le gusta la canción 'c'.
+
+->PerteneceA(c, g): Representa que la canción 'c' pertenece al género 'g'.
+
+->Recomendar(u, c): Representa que se recomienda la canción 'c' al usuario 'u'.
+
+2. Hechos y Reglas: 
+//Los hechos representan la información básica del sistema (usuarios, canciones, géneros, etc.).
+
 Usuario(juan).
 Usuario(maria).
 
-blabla
+Cancion(song1).
+Cancion(song2).
+Cancion(song3).
+
+Genero(rock).
+Genero(pop).
+Genero(jazz).
+
+PerteneceA(song1, rock).
+PerteneceA(song2, pop).
+PerteneceA(song3, jazz).
+
+LeGusta(juan, song1).
+LeGusta(maria, song2).
+
+//Las reglas definen la lógica para hacer recomendaciones. 
+
+# Regla 1: Si a un usuario le gusta una canción de un género, entonces es probable que le gusten otras canciones de ese género.
+∀u ∀c ∀g (Usuario(u) ∧ Cancion(c) ∧ Genero(g) ∧ LeGusta(u, c) ∧ PerteneceA(c, g) → Recomendar(u, c') ∧ PerteneceA(c', g)).
+
+# Regla 2: Si un usuario no ha escuchado una canción, pero pertenece a un género que le gusta, entonces recomendarla.
+∀u ∀c ∀g (Usuario(u) ∧ Cancion(c) ∧ Genero(g) ∧ PerteneceA(c, g) ∧ ¬LeGusta(u, c) ∧ ∃c' (LeGusta(u, c') ∧ PerteneceA(c', g)) → Recomendar(u, c)).
+
+
+3. Consultas
+//Las consultas permiten interactuar con el sistema para obtener recomendaciones o respuestas a preguntas específicas.
+
+//¿Qué canciones se recomiendan a Juan?
+∃c Recomendar(juan, c).
+
+//¿A Maria le gusta el pop?
+∃c (LeGusta(maria, c) ∧ PerteneceA(c, pop)).
+
+//¿Qué canciones de jazz no ha escuchado Juan?
+∃c (PerteneceA(c, jazz) ∧ ¬LeGusta(juan, c)).
